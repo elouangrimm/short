@@ -1,19 +1,5 @@
-import { createClient } from 'redis';
+import { get, set } from '../../lib/kv.js';
 
-// We must declare the client outside the handler to reuse the connection
-let redisClient;
-
-async function getClient() {
-  if (!redisClient) {
-    redisClient = createClient({
-      url: process.env.REDIS_URL
-    });
-    await redisClient.connect();
-  }
-  return redisClient;
-}
-
-// The rest of the file stays exactly the same
 function generateSlug() {
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let slug = '';
@@ -29,7 +15,6 @@ export default async function handler(request, response) {
     }
 
     try {
-        const client = await getClient(); // <-- We get the 'client' here
         const { url, slug: customSlug } = request.body;
 
         if (!url) {
@@ -42,12 +27,12 @@ export default async function handler(request, response) {
             return response.status(400).json({ message: 'Custom slug must be at least 3 characters and can only contain letters, numbers, and dashes.' });
         }
 
-        const existingUrl = await client.get(slug); // <-- FIX: Use 'client' not 'kv'
+        const existingUrl = await get(slug);
         if (existingUrl) {
             return response.status(409).json({ message: `Slug "${slug}" is already in use.` });
         }
 
-        await client.set(slug, url); // <-- FIX: Use 'client' not 'kv'
+        await set(slug, url);
 
         return response.status(200).json({ slug: slug, url: url });
 

@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/((?!api/|style.css|script.js|add.html|add.js|_next/|favicon.ico).*)",
-      "destination": "/api/redirect"
-    }
-  ]
-}
