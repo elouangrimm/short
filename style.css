@@ -1,3 +1,48 @@
+label {
+    display: block;
+    padding: 0.3em 0;
+    margin-bottom: 1em;
+
+    >* {
+        display: block;
+    }
+}
+
+input.textbox {
+    width: 100%;
+    padding: 0.5em;
+    box-sizing: border-box;
+    margin-top: 0.5em;
+    font-size: 1rem;
+    color: var(--stone-50);
+    background-color: var(--stone-800);
+    border: 2px solid var(--stone-700);
+    outline: none;
+    font-family: var(--font-mono);
+}
+
+input.textbox:focus {
+    border-color: var(--blue);
+}
+
+button {
+    --color: var(--blue);
+    padding: 0.7em 1.5em;
+    font-size: 1rem;
+    font-family: var(--font-mono);
+
+    background-color: transparent;
+    border: 2px solid var(--color);
+    color: var(--color);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: var(--color);
+    color: var(--stone-950);
+}
+
 #result {
     margin-top: 2em;
     padding: 1em;
