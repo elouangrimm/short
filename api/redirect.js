@@ -1,12 +1,7 @@
-import { createClient } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
 
-// Check if the environment variable exists before creating the client.
-if (!process.env.REDIS_URL) {
-  throw new Error('Missing environment variable: REDIS_URL');
-}
-
-// Manually create the client using your environment variable
-const kv = createClient({
+// Create the Redis client directly from our specific environment variable
+const kv = new Redis({
   url: process.env.REDIS_URL,
 });
 
