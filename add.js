@@ -8,40 +8,48 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const parts = query.trim().split(/\s+/);
-    const url = parts[0];
+    let url = parts[0];
     const slug = parts[1] || "";
 
-    function isValidUrl(string) {
-        let url;
+    function getValidUrl(string) {
         try {
-            url = new URL(string);
+            new URL(string);
+            return string;
         } catch (_) {
-            return false;
+            try {
+                const urlWithProtocol = `https://${string}`;
+                new URL(urlWithProtocol);
+                return urlWithProtocol;
+            } catch (__) {
+                return null;
+            }
         }
-
-        return true
     }
 
-    if !isValidUrl(url) {
-        window.location.href = `/?error=${encodeURIComponent("The URL you provided is invalid.")}`;
-    } 
+    const validUrl = getValidUrl(url);
+
+    if (!validUrl) {
+        const errorMessage = `The URL you provided is invalid: "${url}"`;
+        window.location.href = `/?error=${encodeURIComponent(errorMessage)}`;
+        return;
+    }
 
     try {
         const response = await fetch("/api/create-link", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ url, slug }),
+            body: JSON.stringify({ url: validUrl, slug }),
         });
 
-        const data = await response.json();
-
         if (!response.ok) {
-            window.location.href = `/?error=${encodeURIComponent(
-                data.message
-            )}`;
-        } else {
-            window.location.href = `/?success=${encodeURIComponent(data.slug)}`;
+            const data = await response.json().catch(() => null);
+            const message = data?.message || "An unknown server error occurred.";
+            throw new Error(message);
         }
+        
+        const data = await response.json();
+        window.location.href = `/?success=${encodeURIComponent(data.slug)}`;
+
     } catch (error) {
         window.location.href = `/?error=${encodeURIComponent(error.message)}`;
     }
