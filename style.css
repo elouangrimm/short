@@ -1,173 +1,9 @@
-:root {
-    /* b&w */
-    --stone-050: #fafaf9;
-    --stone-100: #f5f5f4;
-    --stone-200: #e7e5e4;
-    --stone-300: #d6d3d1;
-    --stone-400: #a8a29e;
-    --stone-500: #78716c;
-    --stone-600: #57534e;
-    --stone-700: #44403c;
-    --stone-800: #292524;
-    --stone-900: #1c1917;
-    --stone-950: #0c0a09;
-
-    /* colors */
-    --red: #ef4444;
-    --orange: #f97316;
-    --amber: #f59e0b;
-    --yellow: #eab308;
-    --lime: #84cc16;
-    --elouan-green: #7DB84F;
-    --green: #22c55e;
-    --emerald: #10b981;
-    --teal: #14b8a6;
-    --cyan: #06b6d4;
-    --sky: #0ea5e9;
-    --blue: #3b82f6;
-    --indigo: #6366f1;
-    --violet: #8b5cf6;
-    --purple: #a855f7;
-    --fuchsia: #d946ef;
-    --pink: #ec4899;
-    --rose: #f43f5e;
-
-    /* link colors */
-    --github: var(--stone-100);
-    --bluesky: #048bff;
-    --email: var(--violet);
-    --rss: var(--orange);
-    --reddit: #FF4500;
-    --signal: #3A76F0;
-    --discord: #3242ED;
-    --default-highlight: var(--fuchsia);
-
-    --font-mono: 'JetBrains Mono', 'SF Mono', 'Roboto Mono', 'Cascadia Code', monospace;
-}
-
-body {
-    font-family: Inter, sans-serif;
-    max-width: 750px;
-    margin: 0 auto;
-    padding: 30px 10px;
-    font-size: 1.1em;
-    background-color: var(--stone-950);
-    color: var(--stone-200);
-    line-height: 1.6;
-}
-
-h1,
-h2,
-h3 {
-    font-family: var(--font-mono);
-    line-height: 1.2;
-}
-
-.heading {
-    font-family: var(--font-mono);
-    line-height: 1.2;
-    text-decoration: none;
-}
-
-.heading a {
-    text-decoration: none;
-}
-
-ul {
-    padding-inline-start: 1em;
-
-    >li {
-        list-style: '- ';
-    }
-}
-
-*::selection {
-    background-color: var(--indigo);
-    color: var(--stone-600);
-}
-
-a.big {
-    padding: 0.1em;
-    font-weight: bold;
-    margin: 0 0.2em;
-
-    &:first-of-type {
-        margin-left: 0;
-    }
-}
-
-a {
-    --color: var(--blue);
-    color: var(--color);
-
-    &.heading {
-        text-decoration: none;
-    }
-
-    &:hover {
-        background-color: var(--color);
-        color: var(--stone-950);
-        outline: 2px solid var(--color);
-    }
-
-    &:focus {
-        outline: 2px solid var(--color);
-        text-decoration: none;
-    }
-}
-
-label {
-    display: block;
-    padding: 0.3em 0;
-    margin-bottom: 1em;
-
-    >* {
-        display: block;
-    }
-}
-
-input.search {
-    width: 100%;
-    padding: 0.5em;
-    box-sizing: border-box;
-    margin-top: 0.5em;
-    font-size: 1rem;
-    color: var(--stone-50);
-    background-color: var(--stone-800);
-    border: 2px solid var(--stone-700);
-    outline: none;
-    font-family: var(--font-mono);
-}
-
-input.search:focus {
-    border-color: var(--blue);
-}
-
-button {
-    --color: var(--blue);
-    padding: 0.7em 1.5em;
-    font-size: 1rem;
-    font-family: var(--font-mono);
-
-    background-color: transparent;
-    border: 2px solid var(--color);
-    color: var(--color);
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-button:hover {
-    background-color: var(--color);
-    color: var(--stone-950);
-}
-
 #result {
     margin-top: 2em;
     padding: 1em;
     background-color: var(--stone-900);
     border: 1px solid var(--stone-800);
     display: none;
-    /* Hidden by default */
 }
 
 #result.error {
@@ -189,7 +25,6 @@ button:disabled {
     color: var(--color);
 }
 
-/* Styles for the new tip section */
 .pro-tip {
     margin-top: 4em;
     padding-top: 2em;
@@ -215,38 +50,29 @@ button:disabled {
     font-weight: normal;
 }
 
-/* Add these new rules for the <details> element */
-
-/* Style the clickable summary part */
 .pro-tip>summary {
     cursor: pointer;
     display: inline-block;
-    /* Allows for better styling */
     padding: 0.2em 0;
     outline-offset: 4px;
 }
 
-/* Change heading color on hover for better feedback */
 .pro-tip>summary:hover h2 {
     color: var(--sky);
 }
 
-/* Remove the default arrow/marker */
 .pro-tip>summary::marker {
     display: none;
 }
 
 .pro-tip>summary {
     list-style: none;
-    /* For Firefox */
 }
 
 .pro-tip>summary::-webkit-details-marker {
     display: none;
-    /* For Chrome/Safari */
 }
 
-/* Add a subtle arrow using pseudo-elements */
 .pro-tip>summary h2::before {
     content: '► ';
     color: var(--stone-500);
@@ -256,12 +82,10 @@ button:disabled {
     transition: transform 0.2s ease-in-out;
 }
 
-/* Rotate the arrow when the details element is open */
 .pro-tip[open]>summary h2::before {
     transform: rotate(90deg);
 }
 
-/* The content inside the details element */
 .pro-tip p, .pro-tip ul {
     margin-top: 1em;
 }

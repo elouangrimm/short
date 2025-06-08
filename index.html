@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Shortener</title>
+    <title>short // elouan.xyz</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elouangrimm/elouan.xyz@main/styles/style.css">
     <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
-    <h1 class="heading">Shorten a URL</h1>
+    <h1 class="heading">short</h1>
     <form id="shorten-form">
         <label>
             Long URL
-            <input type="url" id="url-input" class="search" placeholder="https://example.com/very/long/url" required>
+            <input type="url" id="url-input" class="search" placeholder="https://website.io/super/long/url" required>
         </label>
         <label>
-            Custom Slug (optional)
-            <input type="text" id="slug-input" class="search" placeholder="my-custom-link">
+            Custom URL Slug (optional!)
+            <input type="text" id="slug-input" class="search" placeholder="epic-link-name">
         </label>
         <button type="submit" id="submit-button">Create Link</button>
     </form>
@@ -26,22 +30,24 @@
 
     <details class="pro-tip">
         <summary>
-            <h2 class="heading">Pro Tip: Use from your URL Bar</h2>
+            <h2 class="heading">Pro Tip</h2>
         </summary>
-        <p>You can create short links directly from Chrome's address bar without visiting this page.</p>
+        <p>You can create short links directly from Chrome's omnibox without visiting this page!</p>
         <ul>
             <li>Go to Chrome Settings → Search engine → Manage search engines and site search.</li>
             <li>Under "Site search", click <strong>Add</strong>.</li>
             <li>Fill in the fields:</li>
             <ul>
-                <li><strong>Search engine:</strong> <code>Your Shortener Name</code></li>
-                <li><strong>Shortcut:</strong> <code>link</code> (or your domain)</li>
-                <li><strong>URL with %s in place of query:</strong> <code>https://your-domain.com/add.html?q=%s</code></li>
+                <li><strong>Search engine:</strong> <code>short</code></li>
+                <li><strong>Shortcut:</strong> <code>link</code> (or whatever you want to remember)</li>
+                <li><strong>URL with %s in place of query:</strong> <code>https://short.elouan.xyz/add?q=%s</code></li>
             </ul>
-             <li>Now, type <code>link</code> in your address bar, press <strong>Space</strong>, and then paste your long URL, optionally followed by a space and your custom slug.</li>
+            <li>Now, type <code>link</code> in your address bar, press <strong>Space</strong>, and then paste your long
+                URL, optionally followed by a space and your custom slug!</li>
         </ul>
     </details>
 
     <script src="/script.js"></script>
 </body>
+
 </html>
