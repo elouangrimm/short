@@ -1,6 +1,7 @@
 import { get } from '../lib/kv.js';
 
 export default async function handler(request, response) {
+    console.log(`--- REDIRECT HANDLER EXECUTED for URL: ${request.url} ---`);
     try {
         const host = request.headers.host || 'localhost';
         const proto = /^localhost(:\d+)?$/.test(host) ? 'http' : 'https';
