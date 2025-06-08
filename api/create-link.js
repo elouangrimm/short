@@ -1,12 +1,16 @@
 import { createClient } from '@vercel/kv';
 
+// Check if the environment variable exists before creating the client.
+if (!process.env.REDIS_URL) {
+  throw new Error('Missing environment variable: REDIS_URL');
+}
+
 // Manually create the client using your environment variable
 const kv = createClient({
-  url: process.env.REDIS_URL, // Use the name of your env var
-  // The token is part of the URL string for many Redis providers
+  url: process.env.REDIS_URL,
 });
 
-// Function to generate a random 6-character string
+// The rest of the file stays exactly the same
 function generateSlug() {
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let slug = '';
@@ -28,21 +32,17 @@ export default async function handler(request, response) {
             return response.status(400).json({ message: 'URL is required' });
         }
         
-        // Use custom slug or generate a new one
         const slug = customSlug || generateSlug();
 
-        // Check if slug is just alphanumeric with dashes
         if (!/^[a-zA-Z0-9-]{3,}$/.test(slug)) {
             return response.status(400).json({ message: 'Custom slug must be at least 3 characters and can only contain letters, numbers, and dashes.' });
         }
 
-        // Check if the slug already exists
         const existingUrl = await kv.get(slug);
         if (existingUrl) {
             return response.status(409).json({ message: `Slug "${slug}" is already in use.` });
         }
 
-        // Save the new slug and URL
         await kv.set(slug, url);
 
         return response.status(200).json({ slug: slug, url: url });
