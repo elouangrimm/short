@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>short // elouan.xyz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1 class="heading">Shorten a URL</h1>
+    <form id="shorten-form">
+        <label>
+            Long URL
+            <input type="url" id="url-input" class="search" placeholder="https://example.com/very/long/url" required>
+        </label>
+        <label>
+            Custom Slug (optional)
+            <input type="text" id="slug-input" class="search" placeholder="my-custom-link">
+        </label>
+        <button type="submit" id="submit-button">Create Link</button>
+    </form>
+    <div id="result"></div>
+
+    <script src="/script.js"></script>
+</body>
+</html>
