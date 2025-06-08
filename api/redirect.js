@@ -1,40 +1,38 @@
+// file: api/redirect.js
+
 import { kv } from '@vercel/kv';
-import { NextRequest, NextResponse } from 'next/server';
 
-export const config = {
-  runtime: 'edge',
-};
+export default async function handler(request, response) {
+  // Get just the path from the request URL, e.g., /my-slug
+  // Using the URL constructor is robust for handling potential query params
+  const host = request.headers.host || 'localhost';
+  const proto = /^localhost(:\d+)?$/.test(host) ? 'http' : 'https';
+  const fullUrl = new URL(request.url, `${proto}://${host}`);
+  const slug = fullUrl.pathname.slice(1); // remove the leading '/'
 
-export default async function handler(request) {
-  // The rewrite in vercel.json sends the path here.
-  // We need to extract the slug from the URL path.
-  const slug = request.nextUrl.pathname.slice(1); // remove the leading '/'
-
+  // If the slug is empty or for a file that exists, don't try to redirect.
+  // This check is a safeguard, your vercel.json should already handle it.
   if (!slug) {
-    // If someone just goes to the root, redirect to the main page.
-    // This is a fallback; Vercel should serve index.html directly.
-    return NextResponse.redirect(new URL('/', request.url));
+     return response.redirect(307, '/');
   }
 
   try {
-    // Fetch the long URL from Vercel KV
     const longUrl = await kv.get(slug);
-
+    
     if (longUrl) {
-      // If found, perform a permanent redirect
-      return NextResponse.redirect(new URL(longUrl), 308);
+      // 308 Permanent Redirect is the correct code for a short link
+      return response.redirect(308, longUrl);
     } else {
       // If not found, redirect to the home page with an error
-      // (Or you could have a custom 404 page)
-      const homeUrl = new URL('/', request.url);
-      homeUrl.searchParams.set('error', 'not-found');
-      return NextResponse.redirect(homeUrl);
+      const homeUrl = new URL('/', fullUrl.origin);
+      homeUrl.searchParams.set('error', `The slug "${slug}" was not found.`);
+      return response.redirect(307, homeUrl.toString());
     }
   } catch (error) {
     console.error('Redirect error:', error);
-    // On error, redirect to home
-    const homeUrl = new URL('/', request.url);
-    homeUrl.searchParams.set('error', 'server-error');
-    return NextResponse.redirect(homeUrl);
+    // On a server error, also go home
+    const homeUrl = new URL('/', fullUrl.origin);
+    homeUrl.searchParams.set('error', 'A server error occurred.');
+    return response.redirect(307, homeUrl.toString());
   }
 }
