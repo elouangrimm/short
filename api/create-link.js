@@ -29,6 +29,7 @@ export default async function handler(request, response) {
     }
 
     try {
+        const client = await getClient(); // <-- We get the 'client' here
         const { url, slug: customSlug } = request.body;
 
         if (!url) {
@@ -41,12 +42,12 @@ export default async function handler(request, response) {
             return response.status(400).json({ message: 'Custom slug must be at least 3 characters and can only contain letters, numbers, and dashes.' });
         }
 
-        const existingUrl = await kv.get(slug);
+        const existingUrl = await client.get(slug); // <-- FIX: Use 'client' not 'kv'
         if (existingUrl) {
             return response.status(409).json({ message: `Slug "${slug}" is already in use.` });
         }
 
-        await kv.set(slug, url);
+        await client.set(slug, url); // <-- FIX: Use 'client' not 'kv'
 
         return response.status(200).json({ slug: slug, url: url });
 
