@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>short // elouan.xyz</title>
+    <title>URL Shortener</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
@@ -23,6 +23,23 @@
         <button type="submit" id="submit-button">Create Link</button>
     </form>
     <div id="result"></div>
+
+    <!-- New "Pro Tip" section -->
+    <section class="pro-tip">
+        <h2 class="heading">Pro Tip: Use from your URL Bar</h2>
+        <p>You can create short links directly from Chrome's address bar without visiting this page.</p>
+        <ul>
+            <li>Go to Chrome Settings → Search engine → Manage search engines and site search.</li>
+            <li>Under "Site search", click <strong>Add</strong>.</li>
+            <li>Fill in the fields:</li>
+            <ul>
+                <li><strong>Search engine:</strong> <code>Your Shortener Name</code></li>
+                <li><strong>Shortcut:</strong> <code>link</code> (or your domain)</li>
+                <li><strong>URL with %s in place of query:</strong> <code>https://your-domain.com/add.html?q=%s</code></li>
+            </ul>
+             <li>Now, type <code>link</code> in your address bar, press <strong>Space</strong>, and then paste your long URL, optionally followed by a space and your custom slug.</li>
+        </ul>
+    </section>
 
     <script src="/script.js"></script>
 </body>
