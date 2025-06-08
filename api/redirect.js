@@ -1,4 +1,4 @@
-import { get } from '../../lib/kv.js';
+import { get } from '../lib/kv.js';
 
 export default async function handler(request, response) {
     try {

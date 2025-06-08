@@ -1,4 +1,4 @@
-import { get, set } from '../../lib/kv.js';
+import { get, set } from '../lib/kv.js';
 
 function generateSlug() {
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
