@@ -1,10 +1,17 @@
-import { Redis } from '@upstash/redis';
+import { createClient } from 'redis';
 
-// Create the Redis client directly from our specific environment variable
-const kv = new Redis({
-  url: process.env.REDIS_URL,
-  // The token is parsed from the URL automatically by the Redis client
-});
+// We must declare the client outside the handler to reuse the connection
+let redisClient;
+
+async function getClient() {
+  if (!redisClient) {
+    redisClient = createClient({
+      url: process.env.REDIS_URL
+    });
+    await redisClient.connect();
+  }
+  return redisClient;
+}
 
 // The rest of the file stays exactly the same
 function generateSlug() {
