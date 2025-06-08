@@ -1,6 +1,9 @@
-// file: api/redirect.js
+import { createClient } from '@vercel/kv';
 
-import { kv } from '@vercel/kv';
+// Manually create the client using your environment variable
+const kv = createClient({
+  url: process.env.REDIS_URL, // Use the name of your env var
+});
 
 export default async function handler(request, response) {
   // Get just the path from the request URL, e.g., /my-slug

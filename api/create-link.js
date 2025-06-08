@@ -1,4 +1,10 @@
-import { kv } from '@vercel/kv';
+import { createClient } from '@vercel/kv';
+
+// Manually create the client using your environment variable
+const kv = createClient({
+  url: process.env.REDIS_URL, // Use the name of your env var
+  // The token is part of the URL string for many Redis providers
+});
 
 // Function to generate a random 6-character string
 function generateSlug() {
